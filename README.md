@@ -11,6 +11,7 @@ Simulate the movement of any model from point A to point B.
 * Directions are calculated using Google Maps(Driving or Public Transit)
 * The most recent routes and models are saved to a database for re-retrevial upon page load. Routes and models can be marked as Built-in or Custom, and will appear in different Dropdown List optgroups based on their category.
 * The system will only store the 5 most recent custom routes or models; whenever this limit is exceeded, the system will purge the database of excess entries
+* The camera will periodically change every certain number of frames
 
 GEModelSim is a generic implemenetation of a Model Simulator; ideally, someone else can take this code, built upon it, and create something more concrete:
 * Simulate multiple cars in a solar car race.
@@ -44,5 +45,7 @@ Note: the vast majority of models on the internet are of a fairly low quality. M
 
 ### Known Issues ###
 
-* When deleting a route, the Journey record is removed however JourneyMapLocations and MapLocations records are not
+* For very large routes GEModelSim will lock up the web browser. Asynchronous looping mechanisms that have been investigated have hit browser's stack limits
+* For very large routes the line along the earth will appear to stutter from certain angles. This appears to be a problem with Google Earth, not GEModelSim
+* From certain angles the model may appear to be off the drawn path; upon next camera change however it can be seen the model is in fact going along its path
 * On Google Chrome on OSX if the menu extends off the page the page will not resize to allow scrolling down to the bottom of the menu
