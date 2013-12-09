@@ -76,8 +76,8 @@
 	//Remove rows from the MapLocation table
 	function removeMapLocation($mapLocationID, $dbConn)
 	{
-		$table = "maplocations";
-		$columnName = "mapLocationsID";
+		$table = "maplocation";
+		$columnName = "mapLocationID";
 		
 		removeRecord($table, $columnName, $mapLocationID, $dbConn);
 	}
