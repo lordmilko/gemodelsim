@@ -27,6 +27,8 @@ GEModelSim should be treated as a framework. What cool things can you do with th
 
 Works best with Google Chrome on Windows. Other browsers or other Operating Systems may produce various graphical glitches, so use at your own risk.
 
+Note: if you do not wish to save records to a database, no installation beyond installing the Google Earth Browser Plugin is necessary (simply launch index.html)
+
 ### Known Issues ###
 
 * When deleting a route, the Journey record is removed however JourneyMapLocations and MapLocations records are not
