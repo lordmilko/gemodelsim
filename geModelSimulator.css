@@ -1,0 +1,413 @@
+html,body
+{
+	margin:0;
+	padding:0;
+}
+
+body
+{
+	font: normal 72.5% "Lucida Grande", Helvetica, Verdana, Arial;
+}
+
+/* Set some default properties for the GEPlugin div before the JavaScript resize functions initiate */
+#googleEarthPlugin
+{
+	width:1152px;
+	height:900px;
+}
+
+/* Container for holding IFrames */
+.iframe_container
+{
+    position:absolute;
+    overflow:hidden;
+    border:0px;
+}
+
+/* Wrappers for Iframe Containers/Section Content Containers */
+
+.menuIconWrappers
+{
+    position:absolute;
+    border:0px;
+    width:34px;
+    height:34px;
+}
+
+#menuWrapper
+{
+    position:absolute;
+    border:0px;
+    width:373px;
+    height:auto;
+}
+
+#progressWrapper
+{
+    position:absolute;
+    border:0px;
+    width:323px;
+    height:83px;
+}
+
+/* IFrame Corners (Changes the dimensions of five overlapping Iframes to create a curve shape at all four corners) */
+
+.top_CornerIframe
+{
+    right:5px;
+    bottom:0px;
+    top:0px;
+    left:5px;
+}
+
+.secondToTop_CornerIframe
+{
+    right:3px;
+    bottom:1px;
+    top:1px;
+    left:3px;
+}
+
+.middle_CornerIframe
+{
+    right:2px;
+    bottom:2px;
+    top:2px;
+    left:2px;
+}
+
+.secondToBottom_CornerIframe
+{
+    right:1px;
+    bottom:3px;
+    top:3px;
+    left:1px;
+}
+
+.bottom_CornerIframe
+{
+    right:0px;
+    bottom:5px;
+    top:5px;
+    left:0px;
+}
+
+/* Control the positioning of a set of iframe_containers - i.e. distance from the edge of the page */
+#menuIconImg, #menuLink
+{
+	position:absolute;
+	left:15px;
+	top:15px;
+}
+
+#menuContent
+{
+	position:absolute;
+	left:27px;
+	top:27px;
+}
+
+#progressOverlay
+{
+    position:absolute;
+    left:300px;
+    top:300px;
+}
+
+/* Control the size of the content area that's shown */
+
+#menuIconContent, #menuLinkContent
+{
+	margin:0px;
+	padding:0px;
+	overflow-x:hidden;
+	overflow-y:hidden;
+	width:35px;
+	height:35px;
+	border-radius:6px;
+    position:relative;
+}
+
+#menuContentContent
+{
+	margin:0px;
+	padding:0px;
+
+	overflow-x:hidden;
+	overflow-y:hidden;
+    width:373px;
+    position:relative;
+}
+
+#progressOverlayContent
+{
+    margin:0px;
+    padding:0px;
+    overflow-x:hidden;
+    overflow-y:hidden;
+    width:323px;
+    height:83px;
+    position:relative;
+}
+
+/* The IFrame element acts as a shim - a wedge - and pushes the Content div
+   inside the menu_iframe_container up on top of the GEPlugin div */
+.iframeShimBackground, .iframeShimTransparent
+{
+    border:0px;
+    width:100%;
+    height:100%;
+    overflow:hidden;
+    border:none;
+}
+
+.iframeShimBackground
+{
+    background-color:white;
+}
+
+.iframeShimTransparent
+{
+    background-color:transparent;
+}
+
+/* Menu - Content */
+
+#menuIcon
+{
+	border-radius:6px;
+	width:32px;
+	height:32px;
+	background-image:url('img/menu.png');
+	background-repeat:no-repeat;
+	
+    
+    border:2px solid #666666;
+    border-top:1px solid #D6D6D6;
+    border-left:1px solid #D6D6D6;
+	position:absolute;
+}
+
+#menuLinkOverlay
+{
+	width:32px;
+	height:32px;
+	position:absolute;
+}
+
+#menuURL
+{
+	display:block;
+	height:100%;
+	width:100%;
+	text-decoration:none;
+    border: none !important;
+    font-size:0;
+    background-color:transparent;
+    cursor:pointer;
+}
+
+input[type="button"]
+{
+    outline:none;
+}
+
+form.menu
+{
+	background-color:white;
+    width:370px;
+	font-size:1.1em;
+	color: #333;
+    
+    border:2px solid #848484;
+    border-top:1px solid #D6D6D6;
+    border-left:1px solid #D6D6D6;
+	border-radius:6px;
+    overflow:auto;
+}
+
+form.menu label, .sliderLabel
+{
+	display:inline-block;
+	line-height:1.8;
+	vertical-align:top;
+	width:120px;
+}
+
+.sliderLabel
+{
+	float:left;
+    width:123px;
+	margin-top:1px;
+}
+
+form.menu legend
+{
+	padding: 0 2px;
+	font-weight: bold;
+}
+
+form.menu legend, form.menu label
+{
+	color: #333;
+}
+
+form.menu fieldset
+{
+	border:none;
+	border-top: 1px solid #00A3CC;
+	margin-bottom:0px;
+    padding-bottom:5px;
+}
+
+form.menu fieldset fieldset
+{
+	padding:0;
+	margin-left:10px;
+}
+
+form.menu fieldset fieldset legend
+{
+	padding: 0 0 5px;
+	padding-right:2px;
+	font-style:italic;
+}
+
+form.menu fieldset fieldset label
+{
+	display:inline-block;
+	width:100px;
+}
+
+form.menu fieldset li
+{
+	padding:5px 10px 7px;
+}
+
+fieldset li
+{
+	list-style:none;
+	margin:0;
+}
+
+ol
+{
+	margin:0;
+	padding:0;
+}
+
+#route, #model, #method
+{
+	width:170px;
+}
+
+#customRoute, #customModel
+{
+	display:none;
+}
+
+#submitForm
+{
+    float:right;
+    margin-top:0px;
+    margin-right:12px;
+    margin-bottom:12px;
+}
+
+#retryConnectDB
+{
+    float:right;
+    margin-top:0px;
+}
+
+/* Scale Slider */
+
+.sliderContainer
+{
+	float:left;
+	width:175px;
+	line-height:1.8;
+	display:inline-block;
+}
+
+#currentScale
+{
+	float:left;
+	width:30px;
+}
+
+#modelScaleSlider
+{
+	margin-top:5px;
+	width:138px;
+	float:left;
+}
+
+#currentETA
+{
+    float:left;
+    width:70px;
+}
+
+#etaSlider
+{
+    margin-top:5px;
+    width:98px;
+    float:left;
+}
+
+.clear
+{
+	clear:both !important;
+}
+
+/* Progress Overlay */
+
+#progressText
+{
+    width:300px;
+    height:80px;
+    padding-left:10px;
+    padding-right:10px;
+    border:2px solid #848484;
+    border-top:1px solid #D6D6D6;
+    border-left:1px solid #D6D6D6;
+	border-radius:6px;
+    text-align:center;
+}
+
+/* Error Alerts */
+
+#majorMenuErrors
+{
+	margin-left:12px;
+	margin-right:12px;
+}
+
+.errorImg
+{
+	float:left;
+	clear:both;
+	margin-right:10px;
+	margin-top:12px;
+}
+
+.errorTxt
+{
+	margin-left:0px;
+	overflow:auto;
+	display:block;
+	color:red;
+}
+
+.error, .errorTxt
+{
+	display:none;
+}
+
+/* Set the Menu to initially invisible (changed once Google Earth initialized) */
+
+#menuContentContent, #menuIconImg, #menuLink, #progressOverlay
+{
+	display:none;
+}

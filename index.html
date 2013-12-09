@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+
+	<title>Google Earth Model Simulator - v1.0</title>
+	
+	<!-- - - - - - - - - - - - - - - - Styles - - - - - - - - - - - - - - - -->
+	
+	<link rel="stylesheet" type="text/css" href="geModelSimulator.css">
+	
+	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.3/themes/smoothness/jquery-ui.min.css">
+	
+	<!-- - - - - - - - - - - - - - - - Scripts - - - - - - - - - - - - - - - -->
+	
+	<!-- Google API Loader -->
+	<script src="https://www.google.com/jsapi"></script>
+	
+	<!-- jQuery and jQuery UI -->
+	
+	<script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+	
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+	<!-- Initialization and Overall Driver Functions -->
+	<script src="scripts/main.js"></script>
+	
+	<!-- Menu Animation and Input Validation -->
+	<script src="scripts/menu.js"></script>
+	
+	<!-- Database Access -->
+	<script src="scripts/database.js"></script>
+	
+	<!-- Google Maps Directions Creation -->
+	<script src="scripts/routeCreation.js"></script>
+	
+	<!-- Model Creation Functions -->
+	<script src="scripts/modelCreation.js"></script>
+	
+	<!-- Model Movement Simulator Functions -->
+	<script src="scripts/modelAnimation.js"></script>
+	
+	<!-- Google Earth Helpers Plugin (modified) -->
+	<script src="scripts/geplugin-helpers.js"></script>
+	
+	<!-- Google Earth 3D Math Utilities (required by geplugin-helpers.js) -->
+	<script src="scripts/math3d.js"></script>
+	
+	<!-- Viewport Detection Library -->
+	<script src="scripts/verge.js"></script>
+</head>
+
+<body>
+
+	<!-- The Google Earth Plugin Container -->
+
+	<div id="googleEarthPlugin"></div>
+	
+	<!-- Menu IFrame Containers -->
+
+    <div id="menuIconImg">
+
+        <div class="menuIconWrappers">
+            <div class="iframe_container top_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container secondToTop_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container middle_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container secondToBottom_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container bottom_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+
+            <div id="menuIconContent">
+
+                <div id="menuIcon"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+    
+    <div id="menuContent">
+        <div id="menuWrapper">
+            <div class="iframe_container top_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container secondToTop_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container middle_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container secondToBottom_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container bottom_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+
+            <div id="menuContentContent">
+                <form class="menu" action="javascript:submitForm(this)">
+			
+				    <div id="majorMenuErrors">
+					    <div id="noDB" class="error">
+						    <img src="img/error.png" class="errorImg" alt="Error" />
+						    <div id="noDBTxt" class="errorTxt">
+							    <p style="margin-bottom:10px">There was an error connecting to the Database. You will still be able to use the Google Earth Model Simulator, however you will need to specify a Custom Route and/or Model to use for the simulation.</p>
+							
+							    <p style="margin-top:0px"><input type="button" id="retryConnectDB" value="Retry Connection" onclick="retryConnection()"/></p>
+						    </div>
+					    </div>
+				    </div>
+			
+				    <fieldset>
+					    <legend>Route Details</legend>
+					    <p>Select a Built-in or Recently Used Route, or alternatively create a New one.</p>
+					    <ol>
+						    <li>
+							    <label for="route">Select a Route</label>
+							    <select id="route" onchange="showSubMenu(this, $('#noRouteSelected'), $('#customRoute'))">
+								    <option value="select">Select a Route</option>
+								    <optgroup label="Built in Routes" id="routeBuiltInOptGrp"></optgroup>
+								    <optgroup label="Recent Custom Routes" id="routeRecentCustomOptGrp"></optgroup>
+								    <optgroup label="New Custom Route">
+									    <option value="custom">New Custom Route</option>
+								    </optgroup>
+							    </select>
+						    </li>
+						    <li id="customRoute">
+							    <fieldset>
+								    <legend>New Custom Route</legend>
+								
+								    <p>Enter a Start and End Destination to create a Route along.</p>
+								
+								    <p>Destinations can be names of Suburbs and Places, or Latitudinal and Longitudinal Coordinates</p>
+								
+								    <ol>
+									    <li>
+										    <label for="customRouteFrom">From:</label>
+										    <input type="text" id="customRouteFrom" size="23" />
+									    </li>
+									    <li>
+										    <label for="customRouteTo">To:</label>
+										    <input type="text" id="customRouteTo" size="23" />
+									    </li>
+								    </ol>
+								
+								    <div id="customRouteError" class="error">
+									    <img src="img/error.png" class="errorImg" alt="Error" />
+									
+									    <div id="customRouteError_emptyField" class="errorTxt">
+										    <p>It appears either the <em>From</em> or <em>To</em> field has been left empty.</p>
+										
+										    <p>Please fill in both the <em>From</em> and <em>To</em> fields to create a New Custom Route</p>
+									    </div>
+									
+									    <div id="customRouteError_zeroResults" class="errorTxt">
+										    <p>Google Maps could not create a Route between the above points using the specified Travel Method.</p>
+										
+										    <p>The Country a Destination resides in may need to be specified if the Destination Name is ambiguous.</p>
+									    </div>
+									
+									    <div id="customRouteError_invalidChars" class="errorTxt">
+										    <p>You have entered a prohibited character into either the <em>From</em> or <em>To</em> fields.</p>
+										
+										    <p>The following characters are not allowed to be used in Destination Names: <strong>;</strong></p>
+									    </div>
+								    </div>
+							    </fieldset>
+						    </li>
+                            <li>
+                                <div class="sliderLabel">Travel Time:</div>
+
+                                <div class="sliderContainer">
+                                    <div id="currentETA">Real Time</div>
+                                    <div id="etaSlider"></div>
+                                </div>
+
+                                <!-- Reset the floating for all further content -->
+						        <div class="clear"></div>
+                            </li>
+					    </ol>
+					
+					    <div id="noRouteSelected" class="error">
+						    <img src="img/error.png" class="errorImg" alt="Error" />
+						    <div id="noRouteSelectedTxt" class="errorTxt">
+							    <p>You must specify a Route</p>
+						    </div>
+						
+						    <div id="selectedRoute_zeroResults" class="errorTxt">
+							    <p>Google Maps could not create the selected route using the specified Travel Method.</p>
+
+							    <p>Directions for routes sometimes only exist for certain Travel Methods; please select an alternate Travel Method to draw your route.</p>
+						    </div>
+					    </div>
+					
+				    </fieldset>
+				
+				    <fieldset>
+					    <legend>Model Details</legend>
+					    <p>Select a Built-in or Recently Used Model, or alternatively specify a New one.</p>
+					    <ol>
+						    <li>
+							    <label for="model">Select a Model</label>
+							    <select id="model" onchange="showSubMenu(this, $('#noModelSelected'), $('#customModel'))">
+								    <option value="select">Select a Model</option>
+								    <optgroup label="Built in Models" id="modelBuiltInOptGrp"></optgroup>
+								    <optgroup label="Recent Custom Models" id="modelRecentCustomOptGrp"></optgroup>
+								    <optgroup label="New Custom Model">
+									    <option value="custom">New Custom Model</option>
+								    </optgroup>
+							    </select>
+						    </li>
+						    <li id="customModel">
+							    <fieldset>
+								    <legend>Enter Custom Model</legend>
+								
+								    <p>Enter a URL to a KMZ or COLLADA Model on the Internet. KMZ and COLLADA Models end in a <em>.kmz</em>, <em>.zip</em> or <em>.dae</em> file extension.</p>
+								
+								    <ol>
+									    <li>
+										    <label for="kmzURL">Model File URL:</label>
+										    <input type="text" id="kmzURL" size="23" />
+									    </li>
+								    </ol>
+								
+								    <div id="customModelError" class="error">
+									    <img src="img/error.png" class="errorImg" alt="Error" />
+									    <div id="customModelError_invalidURL" class="errorTxt">
+										    <p>It doesn't appear you've entered a valid URL to a KMZ or COLLADA Model.</p>
+										
+										    <p>Models must be hosted on the Internet, and end in a <em>.kmz</em>, <em>.zip</em> or <em>.dae</em> file extension,</p>
+										
+										    <p>e.g. <em>http://www.example.com/myModel.kmz</em></p>
+									    </div>
+									
+									    <div id="customModelError_invalidModel" class="errorTxt">
+										    <p>The URL specified does not appear to contain a valid KMZ or COLLADA Model.</p>
+										
+										    <p>Are you sure this file contains a KMZ/COLLADA Model?</p>
+									    </div>
+								    </div>
+								
+							    </fieldset>
+						    </li>
+							<li>
+								<div class="sliderLabel">Model Scale:</div>
+								
+								<div class="sliderContainer">
+									<div id="currentScale">3x</div>
+									<div id="modelScaleSlider"></div>
+								</div>
+
+                                <!-- Reset the floating for all further content -->
+						        <div class="clear"></div>
+							</li>
+					    </ol>
+						
+						
+					
+					    <div id="noModelSelected" class="error">
+						    <img src="img/error.png" class="errorImg" alt="Error" />
+						    <div id="noModelSelectedTxt" class="errorTxt">
+							    <p>You must specify a Model</p>
+						    </div>
+					    </div>
+				    </fieldset>
+				
+				    <fieldset>
+					    <legend>Travel Method</legend>
+					    <p>Select a Travel Method for the Model to use to move along the Route</p>
+					    <ol>
+						    <li>
+							    <label for="method">Travel Method</label>
+							    <select id="method" onchange="showSubMenu(this, $('#noMethodSelected'), $('#customMethod'))">
+								    <option value="select">Select a Travel Method</option>
+								    <option value="driving">Driving</option>
+								    <option value="transit">Public Transit</option>
+							    </select>
+						    </li>
+					    </ol>
+					
+					    <div id="noMethodSelected" class="error">
+						    <img src="img/error.png" class="errorImg" alt="Error" />
+						    <div id="noMethodSelectedTxt" class="errorTxt">
+							    <p style="margin-bottom:0">You must specify a Travel Method</p>
+						    </div>
+					    </div>
+				    </fieldset>
+
+				    <input type="submit" value="Submit" id="submitForm" />
+
+			    </form>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div id="menuLink">
+        <div id="menuIconWrappers">
+            <div class="iframe_container top_CornerIframe"><iframe class="iframeShimTransparent" src="about:blank"></iframe></div>
+            <div class="iframe_container secondToTop_CornerIframe"><iframe class="iframeShimTransparent" src="about:blank"></iframe></div>
+            <div class="iframe_container middle_CornerIframe"><iframe class="iframeShimTransparent" src="about:blank"></iframe></div>
+            <div class="iframe_container secondToBottom_CornerIframe"><iframe class="iframeShimTransparent" src="about:blank"></iframe></div>
+            <div class="iframe_container bottom_CornerIframe"><iframe class="iframeShimTransparent" src="about:blank"></iframe></div>
+
+            <div id="menuLinkContent">
+
+                <div id="menuLinkOverlay">
+                    <input type="button" id="menuURL" onclick="javascript:changeMenuVisibility()" />
+			    </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div id="progressOverlay">
+
+        <div id="progressWrapper">
+            <div class="iframe_container top_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container secondToTop_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container middle_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container secondToBottom_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+            <div class="iframe_container bottom_CornerIframe"><iframe class="iframeShimBackground" src="about:blank"></iframe></div>
+
+            <div id="progressOverlayContent">
+                <div id="progressText">
+                    <p>Please wait while the Route and Model are processed</p>
+
+                    <p>This may take several moments depending on the size of the Route and Model chosen</p>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html> 
