@@ -36,7 +36,7 @@ Note: if you do not wish to save records to a database, no installation beyond i
 
 ### Using Custom Models ###
 
-Models be to displayed by Google Earth must be in COLLADA (*.dae) format. Models that are used do not need to be directly models however. Models can be:
+Models to be displayed by Google Earth must be in COLLADA (*.dae) format. Models that are used do not need to be directly models however. Models can be:
 * COLLADA models compressed in a ZIP archive, as seen in downloads from the [Google 3D Warehouse] (http://sketchup.google.com/3dwarehouse/)
 * COLLADA models compressed in a KMZ archive, as seen in models exported from Google SketchUp
 * Straight COLLADA *.dae files containing all model data and textures
