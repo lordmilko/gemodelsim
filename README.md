@@ -28,7 +28,7 @@ GEModelSim should be treated as a framework. What cool things can **you** do wit
 3. Modify __php\require\db.php__ to use your database login credentials (default: __root__, no password)
 4. Navigate to web server from web browser; install Google Earth Browser Plugin as directed
 
-Note: InsertBuiltinData.sql also adds the available Travel Methods to the database. If the default Travel Methods are not added, other database functionality may not work as desired.
+Note: InsertBuiltinData.sql also adds the available Travel Methods to the database. If the default Travel Methods are not added, other database functionality may not work as desired without some slight system modifications.
 
 Works best with Google Chrome on Windows. Other browsers or other Operating Systems may produce various graphical glitches, so use at your own risk.
 
