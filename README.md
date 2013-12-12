@@ -52,4 +52,4 @@ Note: the vast majority of models on the internet are of a fairly low quality. M
 * For very large routes GEModelSim will lock up the web browser. Asynchronous looping mechanisms that have been investigated have hit browser's stack limits
 * For very large routes the line along the earth will appear to stutter from certain angles. This appears to be a problem with Google Earth, not GEModelSim
 * From certain angles the model may appear to be off the drawn path; upon next camera change however it can be seen the model is in fact going along its path
-* On Google Chrome on OSX if the menu extends off the page the page will not resize to allow scrolling down to and thereby accessing the bottom of the menu
+* On Google Chrome on OSX if the menu extends off the page the page will not resize to allow scrolling down to and thereby accessing the bottom of the menu. The form can still be submitted however from inside a Textbox by simply pressing **Enter**
