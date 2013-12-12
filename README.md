@@ -19,7 +19,7 @@ GEModelSim is a generic implemenetation of a Model Simulator; ideally, someone e
 * Simulate multiple cars in a solar car race.
 * Attach carriages to trains and watch them move along the tracks!
 
-GEModelSim should be treated as a framework. What cool things can you do with this?
+GEModelSim should be treated as a framework. What cool things can **you** do with this?
 
 ### Installation ###
 
