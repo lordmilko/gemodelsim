@@ -6,6 +6,8 @@ gemodelsim
 
 Simulate the movement of any model from point A to point B.
 
+Pictures speak louder than words: http://i.imgur.com/LD8j4lM.jpg
+
 * Path from A to B is drawn on Google Earth, traversed by the model at a rate the user specifies
 * Models can be scaled down to microscopic size, or scaled up to terrifying proportions
 * Directions are calculated using Google Maps(Driving or Public Transit)
