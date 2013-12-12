@@ -43,7 +43,7 @@ Models to be displayed by Google Earth must be in COLLADA (*.dae) format. Models
 
 In order for Google Earth to accept a model it _must be hosted on a web server_. For KMZ and ZIP archives it would appear that web server also be _web accessible_. google.earth.fetchKml will silently fail to load KMZ and ZIP archives (it will simply return NULL) if they are hosted on a local, non-web-accessible web server.
 
-If you wish to host your own models and do not have your own web server Dropbox can be used as a suitable alternative. After sharing your file, replace the start of the URL to the file from __https://www.dropbox.com__ to __https://dl.dropboxusercontent.com__ to get a direct link to the file.
+If you wish to host your own models and do not have your own web server Dropbox functions as a suitable alternative. After sharing your file, replace the start of the URL to the file from __https://www.dropbox.com__ to __https://dl.dropboxusercontent.com__ to get a direct link to the file.
 
 Note: the vast majority of models on the internet are of a fairly low quality. Models are often misconfigured, such that the definition of "forwards" is in the wrong direction, and the direction of "center" is far off to the side. Misconfigured models (*.skp files) can be repositioned in Google SketchUp and then exported for use in GEModelSim.
 
