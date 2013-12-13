@@ -14,6 +14,7 @@ Pictures speak louder than words: http://i.imgur.com/LD8j4lM.jpg
 * The most recent routes and models are saved to a database for re-retrevial upon page load. Routes and models can be marked as Built-in or Custom, and will appear in different Dropdown List optgroups based on their category.
 * The system will only store the 5 most recent custom routes or models; whenever this limit is exceeded, the system will purge the database of excess entries
 * The camera will periodically change every certain number of frames
+* Error handling for all user inputs
 
 GEModelSim is a generic implemenetation of a Model Simulator; ideally, someone else can take this code, built upon it, and create something more concrete:
 * Simulate multiple cars in a solar car race.
