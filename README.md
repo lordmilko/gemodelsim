@@ -16,7 +16,7 @@ Pictures speak louder than words: http://i.imgur.com/LD8j4lM.jpg
 * The camera will periodically change every certain number of frames
 * Error handling for all user inputs
 
-GEModelSim is a generic implemenetation of a Model Simulator; ideally, someone else can take this code, built upon it, and create something more concrete:
+GEModelSim is a generic implemenetation of a Model Simulator; ideally, someone else can take this code, build upon it, and create something more concrete:
 * Simulate multiple cars in a solar car race.
 * Attach carriages to trains and watch them move along the tracks!
 
