@@ -31,7 +31,7 @@ GEModelSim should be treated as a framework. What cool things can **you** do wit
 
 Note: InsertBuiltinData.sql also adds the available Travel Methods to the database. If the default Travel Methods are not added, other database functionality may not work as desired without some slight system modifications.
 
-Works best with Google Chrome on Windows. Other browsers or other Operating Systems may produce various graphical glitches, so use at your own risk.
+Works best with Google Chrome on Windows. Other browsers or other Operating Systems may produce various graphical glitches, so use at your own risk. If using Chrome, you must be using Chrome 32-bit - Chrome 64-bit support does not support the Google Earth Plugin
 
 Note: if you do not wish to save records to a database, no installation beyond installing the Google Earth Browser Plugin is necessary (simply launch index.html). A model to use can be found in __SQL\InsertBuiltinData.sql__
 
